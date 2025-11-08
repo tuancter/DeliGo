@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="horizontal"
+    android:padding="12dp">
+
+    <TextView
+        android:id="@+id/cartItemNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:text="Food"
+        android:textColor="@color/black"
+        android:textStyle="bold" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/decreaseButton"
+        style="@style/Widget.DeliGo.Button.Primary"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/deligo_secondary"
+        android:textAllCaps="false"
+        android:text="-" />
+
+    <TextView
+        android:id="@+id/cartItemQuantityTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
+        android:text="1" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/increaseButton"
+        style="@style/Widget.DeliGo.Button.Primary"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:backgroundTint="@color/deligo_primary"
+        android:textAllCaps="false"
+        android:text="+" />
+
+    <TextView
+        android:id="@+id/cartItemPriceTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:text="120.000đ"
+        android:textColor="@color/deligo_primary" />
+</LinearLayout>
