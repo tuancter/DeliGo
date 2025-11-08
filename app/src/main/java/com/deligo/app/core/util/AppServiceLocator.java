@@ -4,7 +4,6 @@ import android.content.Context;
 
 import com.deligo.app.core.network.ApiClient;
 import com.deligo.app.data.api.ComplaintApi;
-import com.deligo.app.data.api.FoodApi;
 import com.deligo.app.data.api.OrderApi;
 import com.deligo.app.data.api.ReviewApi;
 import com.deligo.app.data.repo.AuthRepository;
