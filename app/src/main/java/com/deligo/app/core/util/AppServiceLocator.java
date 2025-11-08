@@ -3,9 +3,7 @@ package com.deligo.app.core.util;
 import android.content.Context;
 
 import com.deligo.app.core.network.ApiClient;
-import com.deligo.app.data.api.AuthApi;
 import com.deligo.app.data.api.ComplaintApi;
-import com.deligo.app.data.api.FoodApi;
 import com.deligo.app.data.api.OrderApi;
 import com.deligo.app.data.api.ReviewApi;
 import com.deligo.app.data.repo.AuthRepository;
@@ -34,14 +32,12 @@ public class AppServiceLocator {
     private AppServiceLocator(Context context) {
         Context appContext = context.getApplicationContext();
         ApiClient apiClient = new ApiClient(appContext);
-        AuthApi authApi = apiClient.create(AuthApi.class);
-        FoodApi foodApi = apiClient.create(FoodApi.class);
         OrderApi orderApi = apiClient.create(OrderApi.class);
         ReviewApi reviewApi = apiClient.create(ReviewApi.class);
         ComplaintApi complaintApi = apiClient.create(ComplaintApi.class);
 
-        authRepository = new AuthRepositoryImpl(appContext, authApi);
-        foodRepository = new FoodRepositoryImpl(appContext, foodApi);
+        authRepository = new AuthRepositoryImpl(appContext);
+        foodRepository = new FoodRepositoryImpl(appContext);
         cartRepository = new CartRepositoryImpl(appContext);
         orderRepository = new OrderRepositoryImpl(appContext, orderApi);
         reviewRepository = new ReviewRepositoryImpl(reviewApi);
