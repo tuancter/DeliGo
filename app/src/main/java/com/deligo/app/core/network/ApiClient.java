@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.deligo.app.core.prefs.AppPreferences;
 
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;

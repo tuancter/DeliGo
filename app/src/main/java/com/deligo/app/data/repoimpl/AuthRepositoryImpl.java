@@ -7,26 +7,20 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.deligo.app.core.prefs.AppPreferences;
 import com.deligo.app.core.util.Result;
-import com.deligo.app.data.api.AuthApi;
-import com.deligo.app.data.api.dto.AuthRequest;
-import com.deligo.app.data.api.dto.AuthResponse;
 import com.deligo.app.data.repo.AuthRepository;
 import com.deligo.app.domain.model.User;
 
-import java.io.IOException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import retrofit2.Call;
-import retrofit2.Response;
-
 public class AuthRepositoryImpl implements AuthRepository {
-    private final AuthApi authApi;
     private final AppPreferences preferences;
     private final ExecutorService executor = Executors.newSingleThreadExecutor();
+    private static final String DEFAULT_EMAIL = "user@deligo.com";
+    private static final String DEFAULT_PASSWORD = "password123";
+    private static final long DEFAULT_USER_ID = 1L;
 
-    public AuthRepositoryImpl(Context context, AuthApi authApi) {
-        this.authApi = authApi;
+    public AuthRepositoryImpl(Context context) {
         this.preferences = new AppPreferences(context);
     }
 
@@ -34,15 +28,14 @@ public class AuthRepositoryImpl implements AuthRepository {
     public LiveData<Result<User>> login(String email, String password) {
         MutableLiveData<Result<User>> liveData = new MutableLiveData<>();
         liveData.setValue(Result.loading(null));
-        executor.execute(() -> performAuth(liveData, authApi.login(new AuthRequest(email, password))));
+        executor.execute(() -> performLocalLogin(liveData, email, password));
         return liveData;
     }
 
     @Override
     public LiveData<Result<User>> register(String email, String password) {
         MutableLiveData<Result<User>> liveData = new MutableLiveData<>();
-        liveData.setValue(Result.loading(null));
-        executor.execute(() -> performAuth(liveData, authApi.register(new AuthRequest(email, password))));
+        liveData.setValue(Result.error("Đăng ký chưa được hỗ trợ", null));
         return liveData;
     }
 
@@ -51,19 +44,13 @@ public class AuthRepositoryImpl implements AuthRepository {
         preferences.clear();
     }
 
-    private void performAuth(MutableLiveData<Result<User>> liveData, Call<AuthResponse> call) {
-        try {
-            Response<AuthResponse> response = call.execute();
-            if (response.isSuccessful() && response.body() != null) {
-                AuthResponse authResponse = response.body();
-                preferences.saveToken(authResponse.getToken());
-                User user = new User(authResponse.getUserId(), authResponse.getName(), authResponse.getEmail(), authResponse.getRole());
-                liveData.postValue(Result.success(user));
-            } else {
-                liveData.postValue(Result.error("Không thể xác thực", null));
-            }
-        } catch (IOException e) {
-            liveData.postValue(Result.error(e.getMessage(), null));
+    private void performLocalLogin(MutableLiveData<Result<User>> liveData, String email, String password) {
+        if (DEFAULT_EMAIL.equalsIgnoreCase(email) && DEFAULT_PASSWORD.equals(password)) {
+            preferences.saveToken("local-token");
+            User user = new User(DEFAULT_USER_ID, "Deligo User", DEFAULT_EMAIL, "USER");
+            liveData.postValue(Result.success(user));
+        } else {
+            liveData.postValue(Result.error("Email hoặc mật khẩu không đúng", null));
         }
     }
 }
