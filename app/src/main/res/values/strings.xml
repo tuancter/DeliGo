@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">DeliGo</string>
+    <string name="login">Đăng nhập</string>
+    <string name="email">Email</string>
+    <string name="password">Mật khẩu</string>
+    <string name="forgot_password">Quên mật khẩu?</string>
+    <string name="no_account">Chưa có tài khoản?</string>
+    <string name="register_now">Đăng ký ngay</string>
+    <string name="login_description">Quản lý đơn hàng thông minh với DeliGo</string>
+    <string name="catalog_title">Danh mục món ăn</string>
+    <string name="cart_title">Giỏ hàng</string>
+    <string name="orders_title">Đơn hàng</string>
+    <string name="profile_title">Tài khoản</string>
+    <string name="search_hint">Tìm món ăn...</string>
+    <string name="checkout">Đặt hàng</string>
+    <string name="empty_cart">Giỏ hàng của bạn đang trống.</string>
+    <string name="total_amount">Tổng cộng</string>
+    <string name="logout">Đăng xuất</string>
+    <string name="catalog_empty">Không có món ăn</string>
+    <string name="orders_empty">Chưa có đơn hàng</string>
+    <string name="profile_placeholder">Thông tin tài khoản sẽ được cập nhật sau khi tích hợp API người dùng.</string>
+</resources>
